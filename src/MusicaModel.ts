@@ -18,3 +18,5 @@ class Musica{
     public setProdutora(produtora: string) {this.produtora = produtora;}
     public getProdutora() {return this.produtora;}
 }
+
+export = Musica;
