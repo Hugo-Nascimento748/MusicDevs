@@ -3,7 +3,7 @@ import { Pool } from 'pg';
 export const pool = new Pool({
   user: "aluno",
   host: "localhost",
-  database: "db_hugo",
+  database: "postgres",
   password: "102030",
   port: 5432,
 });

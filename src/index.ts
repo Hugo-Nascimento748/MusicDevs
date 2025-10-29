@@ -1,5 +1,5 @@
 import { conectarBanco } from "./db";
-import { inserirMusica, buscarMusicas } from "./MusicaModel";
+import { inserirMusica, buscarMusicas, listarTodasMusicas } from "./MusicaModel";
 import readlineSync from "readline-sync";
 
 async function main() {
@@ -9,6 +9,7 @@ async function main() {
   while (true) {
     console.log("\n1 - Adicionar música");
     console.log("2 - Buscar música");
+    console.log("3 - Listar todas as músicas");
     console.log("0 - Sair");
 
     const opcao = readlineSync.question("Escolha: ");
@@ -18,7 +19,7 @@ async function main() {
       const banda = readlineSync.question("Banda: ");
       const produtora = readlineSync.question("Produtora: ");
       const nova = await inserirMusica({ nome, banda, produtora });
-      console.log("✅ Música adicionada:", nova);
+      console.log("Música adicionada:", nova);
     }
 
     else if (opcao === "2") {
@@ -28,6 +29,15 @@ async function main() {
         console.log("Nenhum resultado encontrado.");
       } else {
         console.table(resultados);
+      }
+    }
+
+    else if (opcao === "3") {
+      const todas = await listarTodasMusicas();
+      if (todas.length === 0) {
+        console.log("Nenhuma música cadastrada.");
+      } else {
+        console.table(todas);
       }
     }
 

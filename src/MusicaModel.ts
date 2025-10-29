@@ -1,3 +1,8 @@
+export async function listarTodasMusicas() {
+  const query = `SELECT * FROM musica;`;
+  const resultado = await pool.query(query);
+  return resultado.rows;
+}
 import { pool } from "./db";
 
 export interface Musica {
@@ -8,7 +13,7 @@ export interface Musica {
 
 export async function inserirMusica(musica: Musica) {
   const query = `
-    INSERT INTO musica (nome, banda, produtora)
+    INSERT INTO MUSICA (NOME, BANDA, PRODUTORA)
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
@@ -20,8 +25,8 @@ export async function inserirMusica(musica: Musica) {
 export async function buscarMusicas(termo: string) {
   const query = `
     SELECT * FROM musica
-    WHERE nome ILIKE $1 OR banda ILIKE $1 OR produtora ILIKE $1;
+    WHERE nome ILIKE $1 OR banda ILIKE $2 OR produtora ILIKE $3;
   `;
-  const resultado = await pool.query(query, [`%${termo}%`]);
+  const resultado = await pool.query(query, [`%${termo}%`, `%${termo}%`, `%${termo}%`]);
   return resultado.rows;
 }
