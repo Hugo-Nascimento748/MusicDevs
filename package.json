@@ -1,0 +1,28 @@
+{
+  "name": "musicdevs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hugo-Nascimento748/MusicDevs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hugo-Nascimento748/MusicDevs/issues"
+  },
+  "homepage": "https://github.com/Hugo-Nascimento748/MusicDevs#readme",
+  "dependencies": {
+    "pg": "^8.16.3",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "@types/pg": "^8.15.6",
+    "@types/readline-sync": "^1.4.8"
+  }
+}

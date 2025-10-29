@@ -1,22 +1,27 @@
-class Musica{
-    private nome: string;
-    private banda: string;
-    private produtora: string;
-    
-    constructor (nome: string, banda: string, produtora: string) {
-        this.nome = nome;
-        this.banda = banda;
-        this.produtora = produtora;
-    }
+import { pool } from "./db";
 
-    public setNome(nome: string) {this.nome = nome;}
-    public getNome(){return this.nome;}
-
-    public setBanda(banda: string) {this.banda = banda;}
-    public getBanda() {return this.banda;}
-
-    public setProdutora(produtora: string) {this.produtora = produtora;}
-    public getProdutora() {return this.produtora;}
+export interface Musica {
+  nome: string;
+  banda: string;
+  produtora: string;
 }
 
-export = Musica;
+export async function inserirMusica(musica: Musica) {
+  const query = `
+    INSERT INTO musica (nome, banda, produtora)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+  `;
+  const valores = [musica.nome, musica.banda, musica.produtora];
+  const resultado = await pool.query(query, valores);
+  return resultado.rows[0];
+}
+
+export async function buscarMusicas(termo: string) {
+  const query = `
+    SELECT * FROM musica
+    WHERE nome ILIKE $1 OR banda ILIKE $1 OR produtora ILIKE $1;
+  `;
+  const resultado = await pool.query(query, [`%${termo}%`]);
+  return resultado.rows;
+}
